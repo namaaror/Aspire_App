@@ -16,6 +16,9 @@
         </div>
       </section>
     </header>
+    <section class="card-carousel">
+      <CardCarousel></CardCarousel>
+    </section>
     <section></section>
     <footer>
     </footer>
@@ -23,11 +26,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, toNative } from 'vue-facing-decorator'
+import { Component, Vue, toNative } from 'vue-facing-decorator';
 import logo from "@/assets/icons/logo.svg";
-import addCard from "@/assets/icons/add.svg"
+import addCard from "@/assets/icons/add.svg";
+import CardCarousel from '@/components/CardCarousel.vue';
 
-@Component
+@Component({
+  components: { CardCarousel }
+})
 class App extends Vue {
   text = "";
   logo = logo;
@@ -89,7 +95,6 @@ export default toNative(App);
       font-size: 12px;
     }
   }
-
   .amount {
     grid-row: 2;
     grid-column: 2 / span 2;
@@ -118,6 +123,10 @@ export default toNative(App);
       margin-left: 5px;
       margin-top: -2px;
     }
+  }
+
+  .card-carousel {
+    margin-left: 20px;
   }
 }
 </style>
