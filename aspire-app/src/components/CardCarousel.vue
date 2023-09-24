@@ -1,56 +1,113 @@
 <template>
-    <Carousel
-        :value="products"
-        :numVisible="1"
-        :numScroll="3"
-        :showNavigators="false"
-        :showIndicators="true"
-        :responsiveOptions="responsiveOptions"
-    >
-        <template #item="slotProps">
-            <Card :card-holder-name="slotProps.data.cardHolderName" :card-color="slotProps.data.cardColor"></Card>
-        </template>
-    </Carousel>
+    <section class="carousel-wrapper">
+        <div>
+            <TabView>
+                <TabPanel header="My debit cards">
+                    <Carousel
+                        :value="cards"
+                        :numVisible="2"
+                        :numScroll="cardsCount"
+                        :showNavigators="false"
+                        :showIndicators="true"
+                        :responsiveOptions="responsiveOptions"
+                        @update:page="cardSwipe"
+                    >
+                        <template #item="slotProps">
+                            <Card 
+                                :card-holder-name="slotProps.data.cardHolderName"
+                                :card-color="slotProps.data.cardColor"
+                                :is-frozen="slotProps.data.isFrozen"
+                            />
+                        </template>
+                    </Carousel>
+                </TabPanel>
+                <TabPanel header="All company cards">
+                    <Carousel
+                        :value="cards"
+                        :numVisible="1"
+                        :numScroll="cardsCount"
+                        :showNavigators="false"
+                        :showIndicators="true"
+                        :responsiveOptions="responsiveOptions"
+                    >
+                        <template #item="slotProps">
+                            <Card 
+                                :card-holder-name="slotProps.data.cardHolderName"
+                                :card-color="slotProps.data.cardColor"
+                            />
+                        </template>
+                    </Carousel>
+                </TabPanel>
+            </TabView>
+        </div>
+    </section>
 </template>
 
 <script lang="ts">
-import { Component, Vue, toNative } from 'vue-facing-decorator';
-import Carousel from 'primevue/carousel';
+import { ref } from 'vue';
+import TabView from 'primevue/tabview';
+import TabPanel from 'primevue/tabpanel';
 import Card from '@/components/Card.vue';
-import {ref} from 'vue';
+import Carousel from 'primevue/carousel';
+import { Component, Vue, toNative, Setup } from 'vue-facing-decorator';
+import Cards from '@/resources/Cards.json';
+import LocalStorageService from '@/services/LocalStorageService';
+import { type Product } from '@/types/CardType';
 
 @Component({
-    components: {Carousel, Card}
+    components: {
+        Card,
+        TabView,
+        TabPanel,
+        Carousel,
+    }
 })
 class CardCarousel extends Vue {
-    products = ref([
-        {cardHolderName: 'Naman Arora', cardColor: '#01D167'},
-        {cardHolderName: 'Shubhi Arora', cardColor: '#536DFF'},
-        {}
-        // {src: new URL('../assets/img/sewage-system/02.jpeg', import.meta.url)},
-        // {src: new URL('../assets/img/sewage-system/03.jpeg', import.meta.url)},
-        // {src: new URL('../assets/img/sewage-system/04.jpeg', import.meta.url)},
-        // {src: new URL('../assets/img/sewage-system/05.jpeg', import.meta.url)},
-    ]);
+    cards: Product[] = [];
 
-    responsiveOptions = [{
+    cardsCount = Cards.length;
+
+    responsiveOptions = [
+    {
         breakpoint: '1399px',
         numVisible: 3,
         numScroll: 3
     },
     {
-        breakpoint: '1001px',
+        breakpoint: '899px',
         numVisible: 2,
         numScroll: 2
     },
     {
-        breakpoint: '414px',
+        breakpoint: '500px',
         numVisible: 1,
         numScroll: 1
     }];
+
+    cardSwipe(pageNum: any) {
+    }
+
+    created() {
+        this.emitter.on('new_card_add', this.setCards);
+    }
+
+    mounted() {
+        this.setCards();
+    }
+
+    setCards() {
+        this.cards = LocalStorageService.get('cards');
+    }
 }
+
 export default toNative(CardCarousel);
 </script>
+
+<style lang="scss" scoped>
+.carousel-wrapper {
+    margin: 30px 0px 0px 20px;
+}
+</style>
 
 <style lang="scss">
 .p-carousel-items-container {
@@ -59,5 +116,16 @@ export default toNative(CardCarousel);
 
 .p-carousel-indicators.p-reset {
     list-style: disc;
+    color: #01D167;
+    font-size: 20px;
+}
+
+.p-tabview-header {
+    font-family: 'Open Sans';
+    color: white;
+    font-size: 13px;
+    font-weight: 800;
+    width: 110px;
+    height: 18px;
 }
 </style>
