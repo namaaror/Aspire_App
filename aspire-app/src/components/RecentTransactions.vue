@@ -36,54 +36,55 @@ export default toNative(RecentTransactions);
 </script>
 
 <style lang="scss" scoped>
-
-.recent-transactions-wrapper {
-    .recent-transactions {
-        margin-top: 14px;
-        grid-template-columns: repeat(7, 1fr);
-        background-color: #FAFCFF;
-        border: 1px solid #F5F5F5;
-        height: 72px;
-        width: 366px;
-        border-radius: 8px;
-        margin: 20px;
-        margin-bottom: 0px;
-        display: grid;
-        grid-template-columns: repeat(10, 1fr);
-        padding: 20px;
-        .card-details-logo {
-            grid-column: 1 / 1;
+@media all and (min-width:375px) and (max-width: 768px) {
+    .recent-transactions-wrapper {
+        .recent-transactions {
+            margin-top: 14px;
+            grid-template-columns: repeat(7, 1fr);
+            background-color: #FAFCFF;
+            border: 1px solid #F5F5F5;
+            height: 72px;
+            width: 366px;
+            border-radius: 8px;
+            margin: 20px;
+            margin-bottom: 0px;
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            padding: 20px;
+            .card-details-logo {
+                grid-column: 1 / 1;
+            }
+            .control-action-label {
+                color: #0C365A;
+                font-size: 14px;
+                font-family: 'Open Sans';
+                font-weight: 600;
+                grid-column: 2 / 8;
+                text-align: left;
+            }
+            .up-arrow {
+                grid-column: 10;
+                text-align: right;
+            }
         }
-        .control-action-label {
-            color: #0C365A;
-            font-size: 14px;
-            font-family: 'Open Sans';
+        .transaction-history-wrapper {
+            overflow-y: scroll;
+            min-height: 200px;
+        }
+        .view-all-transactions {
+            height: 50px;
+            background-color: #EDFFF5;
+            border-radius: 8px;
+            border: 1px solid #DDFFEC;
+            color: #01D167;
+            font-size: 13px;
             font-weight: 600;
-            grid-column: 2 / 8;
-            text-align: left;
+            font-family: 'Open Sans';
+            margin: 0px 20px 20px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        .up-arrow {
-            grid-column: 10;
-            text-align: right;
-        }
-    }
-    .transaction-history-wrapper {
-        overflow-y: scroll;
-        min-height: 200px;
-    }
-    .view-all-transactions {
-        height: 50px;
-        background-color: #EDFFF5;
-        border-radius: 8px;
-        border: 1px solid #DDFFEC;
-        color: #01D167;
-        font-size: 13px;
-        font-weight: 600;
-        font-family: 'Open Sans';
-        margin: 0px 20px 20px 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
     }
 }
 </style>

@@ -1,8 +1,8 @@
 <template>
     <section class="card-actions-container">
-        <div class="card-action-logo">
+        <div @click="freezeCardHandler" class="card-action-logo">
             <img class="freeze-card" :src="freezeCard" alt="Freeze">
-            <p class="card-action-label freeze-card-label">Freeze card</p>
+            <p class="card-action-label freeze-card-label">{{ freezeLabel }}</p>
         </div>
         <div class="card-action-logo">
             <img class="set-spend-limit" :src="setSpendLimit" alt="SpendLimit">
@@ -16,8 +16,8 @@
             <img class="replace-card" :src="replaceCard" alt="Replace">
             <p class="card-action-label replace-card-label">Replace card</p>
         </div>
-        <div class="card-action-logo">
-            <img class="cancel-card" :src="cancelCard" alt="Cancel">
+        <div @click="cancelCardHandler" class="card-action-logo">
+            <img  class="cancel-card" :src="cancelCard" alt="Cancel">
             <p class="card-action-label cancel-card-label">Cancel card</p>
         </div>
     </section>
@@ -30,6 +30,7 @@ import replaceCard from '@/assets/icons/replace_card.png';
 import freezeCard from '@/assets/icons/freeze_card.png';
 import setSpendLimit from '@/assets/icons/set_spend_limit.png';
 import cancelCard from '@/assets/icons/deactivate_card.png';
+import LocalStorageService from '@/services/LocalStorageService';
 
 @Component
 class CardActions extends Vue {
@@ -38,12 +39,41 @@ class CardActions extends Vue {
     freezeCard = freezeCard;
     setSpendLimit = setSpendLimit;
     cancelCard = cancelCard;
+    freezeLabel = 'Freeze Card'
+
+    created() {
+        this.updateFreezeLabel();
+        this.emitter.on('page_change', this.updateFreezeLabel)
+    }
+
+    cancelCardHandler() {
+        const cards: any[] = LocalStorageService.get('cards');
+        cards.splice(LocalStorageService.get('pageNum'), 1);
+        LocalStorageService.set('cards', cards);
+        this.emitter.emit('card_list_updated');
+    }
+
+    freezeCardHandler() {
+        const cards: any[] = LocalStorageService.get('cards');
+        const pageNum = LocalStorageService.get('pageNum');
+        cards[pageNum].isFrozen = !cards[pageNum].isFrozen;
+        LocalStorageService.set('cards', cards);
+        this.emitter.emit('card_list_updated');
+        this.updateFreezeLabel();
+    }
+
+    updateFreezeLabel() {
+        const pageNum = LocalStorageService.get('pageNum');
+        const cards = LocalStorageService.get('cards');
+        this.freezeLabel = cards[pageNum].isFrozen ? 'Unfreeze Card' : 'Freeze Card';
+    }
 }
 export default toNative(CardActions);
 </script>
 
 <style scoped lang="scss">
-.card-actions-container {
+@media all and (min-width:375px) and (max-width: 768px) {
+    .card-actions-container {
     display: grid;
     padding-top: 15px;
     padding-bottom: 15px;
@@ -102,5 +132,6 @@ export default toNative(CardActions);
         grid-row: 2;
         grid-column: 5;
     }
+}
 }
 </style>

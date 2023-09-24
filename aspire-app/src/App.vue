@@ -25,7 +25,7 @@ import LocalStorageService from './services/LocalStorageService';
 import { CardsService } from './services/CardsService';
 
 @Component({
-  components: { 
+  components: {
     CardCarousel,
     CardControl,
     FooterItems,
@@ -34,9 +34,11 @@ import { CardsService } from './services/CardsService';
 })
 class App extends Vue {
   created() {
-    CardsService.getCards().then((data) => {
-      LocalStorageService.set('cards', data);
-    });
+    if (!LocalStorageService.get('cards')) {
+      CardsService.getCards().then((data) => {
+        LocalStorageService.set('cards', data);
+      });
+    }
   }
 }
 
@@ -44,28 +46,33 @@ export default toNative(App);
 </script>
 
 <style scoped lang="scss">
-.main-container {
+@media all and (min-width:375px) and (max-width: 768px) {
+  .main-container {
   padding: 20px 20px 0px 0px;
   background-color: #0C365A;
   min-height: calc(100vh - 70px);
   min-width: 100vw;
   position: relative;
+
   .container-header {
     position: sticky;
     top: 22px;
   }
+
   .card-carousel-wrapper {
     position: sticky;
     top: 136px;
   }
+
   .footer-wrapper {
     position: sticky;
     bottom: 0px;
     z-index: 5;
   }
+
   .card-control-wrapper {
     position: relative;
     z-index: 4;
   }
 }
-</style>
+}</style>

@@ -70,7 +70,8 @@ export default toNative(Card);
 </script>
 
 <style scoped lang="scss">
-.p-card {
+@media all and (min-width:375px) and (max-width: 768px) {
+    .p-card {
     background-color: v-bind('cardColor');
     border-radius: 12px;
     height: 220px;
@@ -209,5 +210,6 @@ export default toNative(Card);
         font-weight: 600;
         font-size: 12px;
     }
+}
 }
 </style>

@@ -46,22 +46,24 @@ export default toNative(FooterItems);
 </script>
 
 <style lang="scss" scoped>
-.footer-container {
-    display: flex;
-    justify-content: space-between;
-    width: 100vw;
-    height: 56px;
-    background-color: white;
-    padding: 10px 20px;
-    gap: 32px;
-
-    .aspire-logo {
-        width: 24px;
-        height: 24px;
-    }
-    .footer-action-label {
-        color: #DDDDDD;
-        font-size: 9px;
+@media all and (min-width:375px) and (max-width: 768px) {
+    .footer-container {
+        display: flex;
+        justify-content: space-between;
+        width: 100vw;
+        height: 56px;
+        background-color: white;
+        padding: 10px 20px;
+        gap: 32px;
+    
+        .aspire-logo {
+            width: 24px;
+            height: 24px;
+        }
+        .footer-action-label {
+            color: #DDDDDD;
+            font-size: 9px;
+        }
     }
 }
 </style>

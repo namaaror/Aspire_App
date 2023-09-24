@@ -38,52 +38,54 @@ export default toNative(CardControlCenter);
 </script>
 
 <style lang="scss" scoped>
-.card-control-wrapper {
-    max-height: 110vh;
-    margin-top: 18px;
-    .card-actions-container {
-        padding-left: 10px;
-        border-radius: 12px 12px 0px 0px;
-        height: 116px;
-        width: 98vw;
-        background-color: #EDF3FF;
+@media all and (min-width:375px) and (max-width: 768px) {
+    .card-control-wrapper {
+        max-height: 110vh;
+        margin-top: 18px;
+        .card-actions-container {
+            padding-left: 10px;
+            border-radius: 12px 12px 0px 0px;
+            height: 116px;
+            width: 98vw;
+            background-color: #EDF3FF;
+        }
     }
-}
-.details-container {
-    max-height: 100vh;
-    width: 100vw;
-    background-color: white;
-    overflow-y: scroll;
-}
-.card-details {
-    margin-top: 14px;
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    background-color: #FAFCFF;
-    border: 1px solid #F5F5F5;
-    height: 72px;
-    width: 366px;
-    border-radius: 8px;
-    margin: 20px;
-}
-.card-details {
-    display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    padding: 20px;
-    .card-details-logo {
-        grid-column: 1 / 1;
+    .details-container {
+        max-height: 100vh;
+        width: 100vw;
+        background-color: white;
+        overflow-y: scroll;
     }
-    .control-action-label {
-        color: #0C365A;
-        font-size: 14px;
-        font-family: 'Open Sans';
-        font-weight: 600;
-        grid-column: 2 / 8;
-        text-align: left;
+    .card-details {
+        margin-top: 14px;
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        background-color: #FAFCFF;
+        border: 1px solid #F5F5F5;
+        height: 72px;
+        width: 366px;
+        border-radius: 8px;
+        margin: 20px;
     }
-    .down-arrow {
-        grid-column: 10;
-        text-align: right;
+    .card-details {
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        padding: 20px;
+        .card-details-logo {
+            grid-column: 1 / 1;
+        }
+        .control-action-label {
+            color: #0C365A;
+            font-size: 14px;
+            font-family: 'Open Sans';
+            font-weight: 600;
+            grid-column: 2 / 8;
+            text-align: left;
+        }
+        .down-arrow {
+            grid-column: 10;
+            text-align: right;
+        }
     }
 }
 </style>

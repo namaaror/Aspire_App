@@ -50,7 +50,8 @@ export default toNative(TransactionDetail);
 </script>
 
 <style scoped lang="scss">
-.transction-details-wrapper {
+@media all and (min-width:375px) and (max-width: 768px) {
+    .transction-details-wrapper {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: 1fr 0.75fr;
@@ -121,5 +122,6 @@ export default toNative(TransactionDetail);
             color: #325BAF;
         }
     }
+}
 }
 </style>

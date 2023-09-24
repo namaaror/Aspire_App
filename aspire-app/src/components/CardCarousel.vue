@@ -44,7 +44,6 @@
 </template>
 
 <script lang="ts">
-import { ref } from 'vue';
 import TabView from 'primevue/tabview';
 import TabPanel from 'primevue/tabpanel';
 import Card from '@/components/Card.vue';
@@ -85,10 +84,13 @@ class CardCarousel extends Vue {
     }];
 
     cardSwipe(pageNum: any) {
+        LocalStorageService.set('pageNum', pageNum);
+        this.emitter.emit('page_change');
     }
 
     created() {
-        this.emitter.on('new_card_add', this.setCards);
+        this.emitter.on('card_list_updated', this.setCards);
+        // this.emitter.on('get_card_details', this.emitCardDetails);
     }
 
     mounted() {
@@ -98,6 +100,12 @@ class CardCarousel extends Vue {
     setCards() {
         this.cards = LocalStorageService.get('cards');
     }
+
+    // emitCardDetails() {
+    //     this.emitter.emit('card_details', () => {
+    //         LocalStorageService.get()
+    //     })
+    // }
 }
 
 export default toNative(CardCarousel);

@@ -37,7 +37,7 @@ class Header extends Vue {
         }
         LocalStorageService.set('cards', [...cards, newCard]);
 
-        this.emitter.emit('new_card_add');
+        this.emitter.emit('card_list_updated');
     }
 }
 export default toNative(Header);
